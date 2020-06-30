@@ -1,16 +1,16 @@
 ## GoStack Challenges - Level 02
-Project developed during Rocketseat GoStack, Level 2 challenge on node fundamentals.
+Project developed during Rocketseat GoStack, Level 2 challenge on node and typeorm.
 
-<img alt="node-fundamentals" src="https://repository-images.githubusercontent.com/274746672/95c5fa80-b645-11ea-92cc-9595b4b2e1cc" />
+<img alt="gostack-typeorm-upload" src="https://repository-images.githubusercontent.com/274746672/95c5fa80-b645-11ea-92cc-9595b4b2e1cc" />
 
 <p align="center">
 
   <a href="LICENSE" style="text-decoration: none">
-    <img alt="License" src="https://img.shields.io/github/license/ailtoneric/gostack-fundamentals-node" />
+    <img alt="License" src="https://img.shields.io/github/license/ailtoneric/gostack-typeorm-upload" />
   </a>
 
   <a href="#" style="text-decoration: none">
-    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/ailtoneric/gostack-fundamentals-node" />
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/ailtoneric/gostack-typeorm-upload" />
   </a>
 
 </p>
@@ -22,6 +22,8 @@ This project was developed with the following technologies:
 - [Node JS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [Typescript](https://www.typescriptlang.org/)
+- [Typeorm](https://typeorm.io/#/)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ## :memo: License
 
