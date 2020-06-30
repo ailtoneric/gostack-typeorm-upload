@@ -1,14 +1,15 @@
-import { getRepository } from 'typeorm';
+import { getRepository, getCustomRepository } from 'typeorm';
 
 import AppError from '../errors/AppError';
 import Transaction from '../models/Transaction';
 import Category from '../models/Category';
+import TransactionsRepository from '../repositories/TransactionsRepository';
 
 interface Request {
   title: string;
   value: number;
   type: 'income' | 'outcome';
-  category_id: string;
+  category: string;
 }
 
 class CreateTransactionService {
@@ -16,9 +17,9 @@ class CreateTransactionService {
     title,
     value,
     type,
-    category_id,
+    category,
   }: Request): Promise<Transaction> {
-    const transactionRepository = getRepository(Transaction);
+    const transactionRepository = getCustomRepository(TransactionsRepository);
 
     const typeIsValid = ['income', 'outcome'].includes(type);
 
@@ -26,31 +27,31 @@ class CreateTransactionService {
       throw new AppError('Type is not valid');
     }
 
-    let categoryId: string;
+    const { total } = await transactionRepository.getBalance();
+
+    if (type === 'outcome' && total < value) {
+      throw new AppError('You do not have enough ballance');
+    }
 
     const categoryRepository = getRepository(Category);
 
-    const categoryExists = await categoryRepository.findOne({
-      where: { title: category_id },
+    let transactionCategory = await categoryRepository.findOne({
+      where: { title: category },
     });
 
-    if (!categoryExists) {
-      const category = categoryRepository.create({
-        title: category_id,
+    if (!transactionCategory) {
+      transactionCategory = categoryRepository.create({
+        title: category,
       });
 
-      await categoryRepository.save(category);
-
-      categoryId = category.id;
-    } else {
-      categoryId = categoryExists.id;
+      await categoryRepository.save(transactionCategory);
     }
 
     const transaction = transactionRepository.create({
       title,
       value,
       type,
-      categoryId,
+      category: transactionCategory,
     });
 
     await transactionRepository.save(transaction);
